@@ -79,32 +79,46 @@ const Slider1 = () => {
     centerPadding: '0px', // Reduce padding for a precise center
     variableWidth: false, // Disable for consistent slide width
     infinite: true,
-    slidesToShow: 3, // Ensure at least one slide on either side of the center
+    slidesToShow: 5, // Ensure at least one slide on either side of the center
     speed: 1000, // Decrease speed for smoother transition
-    autoplay: false,
+    autoplay: true,
     arrows: true,
     dots: false,
-    afterChange: (current) => {
-      setCenterSlideData(images[current]); // Sync center slide data
+    afterChange: current => {
+      setCenterSlideData(images[current]) // Sync center slide data
     },
     responsive: [
       {
-        breakpoint: 1024,
+        breakpoint: 1280, // Large screens
         settings: {
-          slidesToShow: 2,
-          centerPadding: '20px',
-        },
+          slidesToShow: 3,
+          centerPadding: '20px'
+        }
       },
       {
-        breakpoint: 768,
+        breakpoint: 1024, // Medium screens
         settings: {
-          slidesToShow: 1,
-          centerPadding: '40px',
-        },
+          slidesToShow: 3,
+          centerPadding: '20px'
+        }
       },
-    ],
-  };
-  
+      {
+        breakpoint: 768, // Small screens
+        settings: {
+          slidesToShow: 3,
+          centerPadding: '40px'
+        }
+      },
+      {
+        breakpoint: 500, // Extra small screens
+        settings: {
+          slidesToShow: 3,
+          centerPadding: '40px'
+        }
+      }
+    ]
+  }
+
   return (
     <div className='team-min-div'>
       {/* Display the current center slide image */}
@@ -130,6 +144,24 @@ const Slider1 = () => {
             backgroundPosition: 'center'
           }}
         >
+          <div className='center-slider'>
+            <div className='center-slider-contant'>
+              <Image
+                src={centerSlideData.img}
+                alt='Center Slide'
+                width={1000}
+                height={1000}
+                className='active-center-img'
+              />
+              <div className='active-slider'>
+                <div className='user-info'>
+                  <h1 className='title'>{centerSlideData?.title}</h1>
+                  <p className='title2'>{centerSlideData?.title2}</p>
+                </div>
+                <p className='details'>{centerSlideData?.details}</p>
+              </div>
+            </div>
+          </div>
           <Slider {...settings}>
             {images.map((src, index) => (
               <div key={index} className={`blogPostBox`}>
@@ -141,20 +173,6 @@ const Slider1 = () => {
                     height={1000}
                     className='w-full h-full slider-img'
                   />
-                </div>
-                <div className='active-div'>
-                  <Image
-                    src={centerSlideData.img}
-                    alt='Center Slide'
-                    width={1000}
-                    height={1000}
-                    className='w-[160px] h-[160px] active-center-img'
-                  />
-                  <div className='user-info'>
-                    <h1 className='title'>{centerSlideData?.title}</h1>
-                    <p className='title2'>{centerSlideData?.title2}</p>
-                  </div>
-                  <p className='details'>{centerSlideData?.details}</p>
                 </div>
               </div>
             ))}
